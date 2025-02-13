@@ -35,7 +35,7 @@ function BookPage() {
         const response = await axios.get(
           `http://localhost:5000/book/${bookName}`
         );
-        console.log(response);
+        // console.log(response);
         setBook(response.data);
       } catch (err) {
         setError("Book not found or an error occurred.", err);
@@ -69,7 +69,7 @@ function BookPage() {
         }
       );
 
-      console.log(response);
+      // console.log(response);
 
       // Update the book state to include the new comment
       setBook((prevBook) => {
@@ -145,7 +145,7 @@ function BookPage() {
           <StarComponent
             onChange={(rating) => {
               setRating(rating);
-              console.log("Selected Rating:", rating);
+              // console.log("Selected Rating:", rating);
             }}
           />
 

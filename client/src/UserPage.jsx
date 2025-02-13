@@ -16,7 +16,7 @@ function UserPage() {
         const response = await axios.get(
           `http://localhost:5000/user/${userName}`
         );
-        console.log(response);
+        // console.log(response);
         setUser(response.data);
       } catch (err) {
         setError("User not found or an error occurred.", err);

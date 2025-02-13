@@ -13,7 +13,7 @@ router.get('/health', (req, res) => {
 router.post('/book', async (req, res) => {
     const { name, photo, reviews } = req.body;
 
-    console.log(`Received request to add new book: ${name}`);
+    // console.log(`Received request to add new book: ${name}`);
 
     try {
         const existingBook = await BookModel.findOne({ name });
@@ -34,7 +34,7 @@ router.post('/book', async (req, res) => {
 
         await new_book.save();
 
-        console.log(`Book saved with rating: ${new_book.rating}`);
+        // console.log(`Book saved with rating: ${new_book.rating}`);
         res.status(201).json(new_book);
     } catch (error) {
         console.error(error);
@@ -48,7 +48,7 @@ router.get('/books', async (req, res) => {
         const books = await BookModel.find();
         res.status(200).json(books);
     } catch (err) {
-        console.log(`ISE in get all books ${err}`);
+        // console.log(`ISE in get all books ${err}`);
     }
 });
 
@@ -64,7 +64,7 @@ router.get('/book/:name', async (req, res) => {
 
         res.status(200).json(books);
     } catch (err) {
-        console.log(`ISE at get book/name ${err}`);
+        // console.log(`ISE at get book/name ${err}`);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
@@ -76,11 +76,11 @@ router.get('/reviews/:name', async (req, res) => {
         const book = await BookModel.findOne({ name: name });
         const reviews = book.reviews;
 
-        console.log(reviews);
-        console.log(`reviews fetched successfully`);
+        // console.log(reviews);
+        // console.log(`reviews fetched successfully`);
         res.status(200).json(reviews);
     } catch (err) {
-        console.log(`ISE in get reviews for book ${err}`);
+        // console.log(`ISE in get reviews for book ${err}`);
     }
 });
 
@@ -115,17 +115,17 @@ router.post('/reviews/:name', async (req, res) => {
 
         await book.save();
 
-        console.log(`review added successfully ${new_review.reviewer}`);
-        console.log(`rating updated successfully ${total_rating}`);
+        // console.log(`review added successfully ${new_review.reviewer}`);
+        // console.log(`rating updated successfully ${total_rating}`);
 
         const user = await UserModel.findOne({ email: reviewer_email });
         user.reviews.push(new_review);
 
-        console.log(`reviewer review saved`);
+        // console.log(`reviewer review saved`);
 
         res.status(200).json({ message: "successfully reviewed on book" });
     } catch (err) {
-        console.log(`ISE at post reviews`, err);
+        // console.log(`ISE at post reviews`, err);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
@@ -139,12 +139,12 @@ router.post('/user/login', async (req, res) => {
         if (!user || password != user.password) {
             res.status(400).json({ message: "Incorrect password" });
         }
-        console.log(user);
+        // console.log(user);
 
         const token = jsonwebtoken.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ message: 'User logged in successfully', token, user: user });
     } catch (err) {
-        console.log(`ISE at user-login ${err}`);
+        // console.log(`ISE at user-login ${err}`);
     }
 });
 
@@ -175,7 +175,7 @@ router.post('/user/register', async (req, res) => {
         const token = jsonwebtoken.sign({ id: new_user._id, email: new_user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ message: 'User registered successfully', token, user: new_user });
     } catch (err) {
-        console.log(`ISE at register-user ${err}`);
+        // console.log(`ISE at register-user ${err}`);
     }
 });
 

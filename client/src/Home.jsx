@@ -26,7 +26,7 @@ function Home() {
     const getBooks = async () => {
       try {
         const response = await axios.get("http://localhost:5000/books");
-        console.log(response.data);
+        // console.log(response.data);
         setBooks(response.data);
       } catch (error) {
         console.error("Error fetching books:", error);
@@ -41,7 +41,7 @@ function Home() {
 
     try {
       const response = await axios.post("http://localhost:5000/book", { name });
-      console.log(response.data);
+      // console.log(response.data);
       setBooks((prevBooks) => [...prevBooks, response.data]);
     } catch (error) {
       console.error(

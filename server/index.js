@@ -17,7 +17,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, {
 }).then(() => {
-    console.log('Connected to MongoDB');
+    // console.log('Connected to MongoDB');
 }).catch((error) => {
     console.error('Error connecting to MongoDB:', error);
 });
@@ -26,5 +26,5 @@ const routes = require('./routes');
 app.use('/', routes);
 
 app.listen(PORT, () => {
-    console.log(`app listening to ${PORT}`);
+    // console.log(`app listening to ${PORT}`);
 });
