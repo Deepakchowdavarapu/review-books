@@ -33,7 +33,7 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-4 max-w-4xl mx-auto">
       <input
         type="text"
         className="w-full p-2 text-3xl border-2 border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
@@ -48,7 +48,7 @@ const Searchbar = () => {
             <li 
               key={id}
               onClick={()=>handleBookClick(book.name)}
-              className="list-none text-2xl p-2 bg-gray-100 rounded-md shadow-md cursor-pointer"
+              className="list-none text-2xl p-2 bg-gray-300 hover:bg-gray-400 shadow-md cursor-pointer"
             >
               {book.name}
             </li>

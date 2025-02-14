@@ -33,8 +33,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    reviews: [ReviewSchema],
-    ratings: [RatingSchema]
+    reviews: {
+        type: Array,
+        default: []
+    },
 });
 
 const UserModel = mongoose.model("User", UserSchema);

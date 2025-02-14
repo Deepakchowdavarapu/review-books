@@ -6,7 +6,7 @@ const jsonwebtoken = require('jsonwebtoken');
 
 // Health check route
 router.get('/health', (req, res) => {
-    res.status(400).json({ "message": "App health is fyn" });
+    res.status(200).json({ "message": "App health is fyn" });
 });
 
 // Add a new book
@@ -120,6 +120,7 @@ router.post('/reviews/:name', async (req, res) => {
 
         const user = await UserModel.findOne({ email: reviewer_email });
         user.reviews.push(new_review);
+        await user.save();
 
         // console.log(`reviewer review saved`);
 
@@ -164,7 +165,7 @@ router.post('/user/register', async (req, res) => {
 
         const new_user = await UserModel.create({
             role: 'reviewer',
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtn8IMC9baGVSZ5_5l_XC58PX4kb7zO5F56A&s",
+            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBTym3IWgvwc58Oq_BCusGZKtqqllkljgw3g&s",
             name: name,
             email: email,
             password: password

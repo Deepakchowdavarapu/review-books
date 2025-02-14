@@ -25,7 +25,7 @@ function StarRating({ totalStars = 5, initialSelected = 0, onChange }) {
                     <Star
                         fill={idx + 1 <= hoverIdx || idx + 1 <= selectIdx ? "currentColor" : "none"}
                         stroke={idx + 1 <= hoverIdx || idx + 1 <= selectIdx ? "none" : "currentColor"}
-                        className="w-8 h-8 text-yellow-500"
+                        className="w-8 h-8 text-red-500"
                     />
                 </li>
             ))}

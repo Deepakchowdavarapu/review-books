@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { MoveLeft , Underline, X} from "lucide-react";
 import StarComponent from "./StarComponent";
 
 function BookPage() {
@@ -88,69 +89,100 @@ function BookPage() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading) return <p className="text-center text-xl">Loading...</p>;
+  if (error) return <p className="text-center text-xl text-red-500">{error}</p>;
 
   return (
     <div className="p-4">
-      <Link className="text-black text-2xl" to={"/"}>
-        Home
+      <Link className="text-black text-3xl p-4 flex" to={"/"}>
+      <MoveLeft size={48} strokeWidth={3} absoluteStrokeWidth />  
+      <div className="text-3xl">Home</div>
       </Link>
       {book ? (
-        <>
-          <h1 className="text-3xl font-bold">{book[0].name}</h1>
+        <div className="w-screen items-center flex flex-col">
+          <h1 className="text-5xl font-bold mt-4">{book[0].name}</h1>
           <img
             src={book[0].photo.url}
             alt={book[0].name}
-            className="w-64 h-auto my-4"
+            className="w-100 h-100 my-4 shadow-md"
           />
-          <p>{book[0].rating}</p>
-          <p className="text-lg">{book[0].description}</p>
-          <ul>
+          <p className="text-xl font-semibold">Rating: {book[0].rating}/5</p>
+        </div>
+
+          )
+          :
+          <p>loading</p>
+      }
+
+
+      <div className="text-4xl font-bold text-red-500 my-5">
+        reviews
+        <hr />
+      </div>
+
+          {book ? (
+          <ul className="mt-4">
             {book[0].reviews.map((review, index) => (
-              <li key={index} className="my-2">
-                <p
-                  className="font-semibold cursor-pointer"
+              <li key={index} className="my-2 p-4 border-b border-gray-300" style={{listStyleType: "decimal"}}>
+                <div className="text-2xl flex items-center">
+                  {/* <div className="text-2xl">User:</div> */}
+                  <p
+                  className="font-semibold cursor-pointer text-red-500"
                   onClick={() => navigate(`/user?name=${review.reviewer_name}`)}
                 >
-                  {review.reviewer_name} ({review.reviewer_email})
+                 {review.reviewer_name} ({review.reviewer_email})
                 </p>
-                <p>{review.comment[0]}</p>
-                <p>Rating: {review.comment[1]}</p>
-                <p className="text-sm text-gray-500">
+                </div>
+                <div className="text-xl flex items-center">
+                  <div className="text-red-500">comment:</div>
+                  <p className="mt-1">{review.comment[0]}</p>
+                </div>
+               <div className="text-xl flex items-center">
+                <div className="text-red-500">Rating:</div>
+                <p className="mt-1">{review.comment[1]}/5</p>
+               </div>
+                <p className="text-sm text-gray-500 mt-1">
                   {new Date(review.date).toLocaleString()}
                 </p>
               </li>
             ))}
           </ul>
-        </>
       ) : (
-        <p>No book details available.</p>
+        <p className="text-center text-xl">No book details available.</p>
       )}
 
       {!addComment ? (
-        <div onClick={() => setAddComment(!addComment)} className="text-3xl">
-          Add comment
+        <div
+          onClick={() => setAddComment(!addComment)}
+          className="text-3xl text-center mt-4 cursor-pointer text-red-500"
+        >
+          Add Review
         </div>
       ) : (
-        <div className="text-3xl">
-          <p onClick={() => setAddComment(!addComment)}>X</p>
-          <p>Add comment</p>
+        <div className="text-3xl mt-4">
+          <div className="flex justify-around items-center">
+          <p
+            onClick={() => setAddComment(!addComment)}
+            className="cursor-pointer text-red-500"
+          >
+            <X size={48} strokeWidth={3} absoluteStrokeWidth />
+          </p>
+          <p className="mt-2">Add comment</p>
+          </div>
           <input
             type="text"
-            className="border-2 border-gray-300 p-2 rounded-md"
+            className="border-2 border-gray-300 p-2 rounded-md w-full mt-2"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
-          <StarComponent
+          <StarComponent 
             onChange={(rating) => {
               setRating(rating);
-              // console.log("Selected Rating:", rating);
             }}
-          />
 
+          />
           <div
-            className="text-3xl text-white py-5 bg-blue-500"
+            className="text-3xl text-white py-2 px-4 bg-red-500 mt-4 rounded-md cursor-pointer text-center"
             onClick={postComment}
           >
             POST

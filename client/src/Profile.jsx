@@ -6,6 +6,7 @@ const Profile = () => {
   useEffect(() => {
     const setProfile = async () => {
       const userData = localStorage.getItem("user");
+      console.log(userData);
       if (userData) {
         setUser(JSON.parse(userData));
       }
@@ -14,18 +15,22 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="p-4 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+    <div className="flex items-center justify-center w-screen h-auto">
       {user.name ? (
-        <>
-          <img className="w-24 h-24 rounded-full mx-auto" src={user.photo} alt={user.name} />
-          <div className="text-center">
-            <p className="text-xl font-semibold">{user.name}</p>
-            <p className="text-gray-500">{user.email}</p>
-            <p className="text-gray-500">{user.role}</p>
-            <p className="text-gray-500">Ratings: {user.ratings.length}</p>
-            <p className="text-gray-500">Reviews: {user.reviews.length}</p>
+        <div className=" p-30 text-start shadow-lg">
+          <img
+            className="w-32 h-32 rounded-full mx-auto"
+            src={user.photo}
+            alt={user.name}
+          />
+          <div className="text-center mt-4">
+            <p className="text-2xl font-semibold">{user.name}</p>
+            <p className="text-gray-600">{user.email}</p>
+            <p className="text-gray-600">{user.role}</p>
+            <p className="text-gray-600">Ratings: {user.ratings.length}</p>
+            <p className="text-gray-600">Reviews: {user.reviews.length}</p>
           </div>
-        </>
+        </div>
       ) : (
         <p className="text-center text-gray-500">No user</p>
       )}

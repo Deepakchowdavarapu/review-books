@@ -19,7 +19,7 @@ function UserPage() {
         // console.log(response);
         setUser(response.data);
       } catch (err) {
-        setError("User not found or an error occurred.", err);
+        setError("User not found or an error occurred.");
       } finally {
         setLoading(false);
       }
@@ -34,7 +34,7 @@ function UserPage() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="p-4">
+    <div className="max-w-4xl mx-auto p-4">
       <Link className="text-black text-2xl" to={"/"}>
         Home
       </Link>
