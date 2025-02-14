@@ -11,21 +11,24 @@ const Register = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate('/');
+      navigate("/");
     }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/user/register", {
-        name,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://review-books-two.vercel.app/user/register",
+        {
+          name,
+          email,
+          password,
+        }
+      );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error("Error registering user:", error);
     }
@@ -34,7 +37,9 @@ const Register = () => {
   return (
     <div className="h-screen w-screen flex flex-col items-center justify-center">
       <form className="bg-white shadow-md text-2xl" onSubmit={handleSubmit}>
-      <div className="text-3xl align-center flex font-bold justify-center font-weight-900">REGISTER</div>
+        <div className="text-3xl align-center flex font-bold justify-center font-weight-900">
+          REGISTER
+        </div>
         <div className="m-5">
           <label className="block text-gray-700">Name:</label>
           <input
@@ -73,7 +78,10 @@ const Register = () => {
         </button>
       </form>
       <div className="text-2xl mt-4">
-        Already have an account? <Link to={'/login'} className="text-red-500 hover:text-red-300">Login</Link>
+        Already have an account?{" "}
+        <Link to={"/login"} className="text-red-500 hover:text-red-300">
+          Login
+        </Link>
       </div>
     </div>
   );

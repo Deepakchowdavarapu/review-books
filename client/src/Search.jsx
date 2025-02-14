@@ -6,14 +6,16 @@ import { useNavigate } from "react-router-dom";
 const Searchbar = () => {
   const [value, setValue] = useState("");
   const [searchResult, setSearchResult] = useState();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getSearchResults = async () => {
       if (value.length === 0) return;
 
       try {
-        const response = await axios.get(`http://localhost:5000/book/${value}`);
+        const response = await axios.get(
+          `https://review-books-two.vercel.app/book/${value}`
+        );
         setSearchResult(response.data);
         // console.log(response.data);
       } catch (error) {
@@ -29,7 +31,7 @@ const Searchbar = () => {
   }, [value]);
 
   const handleBookClick = (name) => {
-    navigate(`/book?name=${name}`); 
+    navigate(`/book?name=${name}`);
   };
 
   return (
@@ -45,9 +47,9 @@ const Searchbar = () => {
       {value.length > 0 && searchResult ? (
         <ul className="mt-4 space-y-2">
           {searchResult.map((book, id) => (
-            <li 
+            <li
               key={id}
-              onClick={()=>handleBookClick(book.name)}
+              onClick={() => handleBookClick(book.name)}
               className="list-none text-2xl p-2 bg-gray-300 hover:bg-gray-400 shadow-md cursor-pointer"
             >
               {book.name}

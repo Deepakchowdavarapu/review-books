@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { MoveLeft , Underline, X} from "lucide-react";
+import { MoveLeft, Underline, X } from "lucide-react";
 import StarComponent from "./StarComponent";
 
 function BookPage() {
@@ -34,7 +34,7 @@ function BookPage() {
     const fetchBook = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/book/${bookName}`
+          `https://review-books-two.vercel.app/book/${bookName}`
         );
         // console.log(response);
         setBook(response.data);
@@ -61,7 +61,7 @@ function BookPage() {
 
     try {
       const response = await axios.post(
-        `http://localhost:5000/reviews/${bookName}`,
+        `https://review-books-two.vercel.app/reviews/${bookName}`,
         {
           reviewer_name,
           reviewer_email,
@@ -95,8 +95,8 @@ function BookPage() {
   return (
     <div className="p-4">
       <Link className="text-black text-3xl p-4 flex" to={"/"}>
-      <MoveLeft size={48} strokeWidth={3} absoluteStrokeWidth />  
-      <div className="text-3xl">Home</div>
+        <MoveLeft size={48} strokeWidth={3} absoluteStrokeWidth />
+        <div className="text-3xl">Home</div>
       </Link>
       {book ? (
         <div className="w-screen items-center flex flex-col">
@@ -108,45 +108,46 @@ function BookPage() {
           />
           <p className="text-xl font-semibold">Rating: {book[0].rating}/5</p>
         </div>
-
-          )
-          :
-          <p>loading</p>
-      }
-
+      ) : (
+        <p>loading</p>
+      )}
 
       <div className="text-4xl font-bold text-red-500 my-5">
         reviews
         <hr />
       </div>
 
-          {book ? (
-          <ul className="mt-4">
-            {book[0].reviews.map((review, index) => (
-              <li key={index} className="my-2 p-4 border-b border-gray-300" style={{listStyleType: "decimal"}}>
-                <div className="text-2xl flex items-center">
-                  {/* <div className="text-2xl">User:</div> */}
-                  <p
+      {book ? (
+        <ul className="mt-4">
+          {book[0].reviews.map((review, index) => (
+            <li
+              key={index}
+              className="my-2 p-4 border-b border-gray-300"
+              style={{ listStyleType: "decimal" }}
+            >
+              <div className="text-2xl flex items-center">
+                {/* <div className="text-2xl">User:</div> */}
+                <p
                   className="font-semibold cursor-pointer text-red-500"
                   onClick={() => navigate(`/user?name=${review.reviewer_name}`)}
                 >
-                 {review.reviewer_name} ({review.reviewer_email})
+                  {review.reviewer_name} ({review.reviewer_email})
                 </p>
-                </div>
-                <div className="text-xl flex items-center">
-                  <div className="text-red-500">comment:</div>
-                  <p className="mt-1">{review.comment[0]}</p>
-                </div>
-               <div className="text-xl flex items-center">
+              </div>
+              <div className="text-xl flex items-center">
+                <div className="text-red-500">comment:</div>
+                <p className="mt-1">{review.comment[0]}</p>
+              </div>
+              <div className="text-xl flex items-center">
                 <div className="text-red-500">Rating:</div>
                 <p className="mt-1">{review.comment[1]}/5</p>
-               </div>
-                <p className="text-sm text-gray-500 mt-1">
-                  {new Date(review.date).toLocaleString()}
-                </p>
-              </li>
-            ))}
-          </ul>
+              </div>
+              <p className="text-sm text-gray-500 mt-1">
+                {new Date(review.date).toLocaleString()}
+              </p>
+            </li>
+          ))}
+        </ul>
       ) : (
         <p className="text-center text-xl">No book details available.</p>
       )}
@@ -161,13 +162,13 @@ function BookPage() {
       ) : (
         <div className="text-3xl mt-4">
           <div className="flex justify-around items-center">
-          <p
-            onClick={() => setAddComment(!addComment)}
-            className="cursor-pointer text-red-500"
-          >
-            <X size={48} strokeWidth={3} absoluteStrokeWidth />
-          </p>
-          <p className="mt-2">Add comment</p>
+            <p
+              onClick={() => setAddComment(!addComment)}
+              className="cursor-pointer text-red-500"
+            >
+              <X size={48} strokeWidth={3} absoluteStrokeWidth />
+            </p>
+            <p className="mt-2">Add comment</p>
           </div>
           <input
             type="text"
@@ -175,11 +176,10 @@ function BookPage() {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
-          <StarComponent 
+          <StarComponent
             onChange={(rating) => {
               setRating(rating);
             }}
-
           />
           <div
             className="text-3xl text-white py-2 px-4 bg-red-500 mt-4 rounded-md cursor-pointer text-center"

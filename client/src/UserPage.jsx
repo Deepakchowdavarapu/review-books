@@ -14,7 +14,7 @@ function UserPage() {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/user/${userName}`
+          `https://review-books-two.vercel.app/user/${userName}`
         );
         // console.log(response);
         setUser(response.data);

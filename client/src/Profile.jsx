@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState({});
+  const navigate = useNavigate()
 
   useEffect(() => {
+
+    const token = localStorage.getItem("token")
+    if(!token){
+      navigate('/login')
+    }
+
     const setProfile = async () => {
       const userData = localStorage.getItem("user");
       console.log(userData);
