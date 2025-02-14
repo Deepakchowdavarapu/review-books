@@ -9,8 +9,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const user_profile = path.join(__dirname, 'default_user_profile.jpg');
-const book_profile = path.join(__dirname, `default_book.jpg`);
 
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
